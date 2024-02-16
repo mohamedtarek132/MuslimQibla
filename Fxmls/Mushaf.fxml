@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Muslim_Qibla.Fxmls.Mushaf"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Muslim_Qibla.Controllers.Mushaf">
+   <children>
+      <ImageView fitHeight="1024.0" fitWidth="1440.0" preserveRatio="true">
+         <image>
+            <Image url="@../Files/Mus'haf.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="40.0" layoutX="219.0" layoutY="97.0" stroke="#dfdbe1" strokeType="INSIDE" width="500.0" />
+      <TextArea fx:id="search_bar" layoutX="219.0" layoutY="97.0" opacity="0.0" prefHeight="40.0" prefWidth="500.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#7e2092" height="40.0" layoutX="521.0" layoutY="154.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Text fx:id="surah" boundsType="VISUAL" fill="WHITE" layoutX="590.0" layoutY="174.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="الكهف" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal" size="24.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#7e2092" height="40.0" layoutX="219.0" layoutY="154.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#f3f3f3" height="748.0" layoutX="227.0" layoutY="210.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#7e2092" height="40.0" layoutX="1232.0" layoutY="210.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#7e2092" height="40.0" layoutX="1232.0" layoutY="271.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#7e2092" height="50.0" layoutX="641.0" layoutY="965.0" opacity="0.8" stroke="BLACK" strokeType="INSIDE" width="158.0" />
+      <Text fx:id="surah1" boundsType="VISUAL" fill="WHITE" layoutX="254.0" layoutY="174.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="الخامس عشر" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="surah2" boundsType="VISUAL" fill="WHITE" layoutX="725.0" layoutY="174.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="سورة" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal-Medium" size="32.0" />
+         </font>
+      </Text>
+      <Text fx:id="surah21" boundsType="VISUAL" fill="WHITE" layoutX="423.0" layoutY="174.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="الجزء" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal-Medium" size="32.0" />
+         </font>
+      </Text>
+      <Text fx:id="surah22" boundsType="VISUAL" fill="WHITE" layoutX="1279.0" layoutY="230.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="حفظ علامة" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="surah221" boundsType="VISUAL" fill="WHITE" layoutX="1298.0" layoutY="289.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="علامات" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="surah2211" boundsType="VISUAL" fill="WHITE" layoutX="695.0" layoutY="988.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="۳۰۲" textAlignment="CENTER" textOrigin="CENTER">
+         <font>
+            <Font name="Tajawal" size="32.0" />
+         </font>
+      </Text>
+      <Text fx:id="surah23" boundsType="VISUAL" fill="WHITE" layoutX="1004.0" layoutY="73.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="القرآن الكريم" textAlignment="CENTER" textOrigin="TOP">
+         <font>
+            <Font name="kfgqpc_hafs_uthmanic_script Regular" size="64.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="620.0" layoutY="43.0" preserveRatio="true">
+         <image>
+            <Image url="@../Files/search.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="1314.0" layoutY="79.0">
+         <image>
+            <Image url="@../Files/menu.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="8.0" arcWidth="8.0" fill="#d1a476" height="100.0" layoutX="1145.0" layoutY="204.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="40.0" />
+      <Polygon fill="#e0dbe3" layoutX="1165.0" layoutY="301.0" points="-20.5999755859375, 4.79998779296875, 20.4000244140625, 4.79998779296875, 0.0, -20.20001220703125" stroke="#e0dbe3" strokeType="INSIDE" strokeWidth="0.0" />
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="673.0" layoutY="107.0">
+         <image>
+            <Image url="@../Files/search.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#232323" height="1024.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="1440.0" />
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#080927" height="800.0" layoutX="384.0" layoutY="104.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" width="680.0" />
+      <Line endX="580.0" layoutX="442.0" layoutY="221.0" stroke="WHITE" strokeWidth="2.0" />
+      <ScrollBar layoutX="1032.0" layoutY="341.0" max="500.0" orientation="VERTICAL" prefHeight="500.0" />
+   </children>
 </AnchorPane>
