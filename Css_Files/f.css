@@ -1,0 +1,7 @@
+.text-input{
+    -fx-background-color : Transparent;
+}
+.text-field .text{
+-fx-font-smoothing-type: gray;
+-fx-opacity:1;
+}
