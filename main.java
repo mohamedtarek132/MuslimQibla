@@ -19,27 +19,24 @@ public class main  extends Application{
     @Override
     public void start(Stage primaryStage) throws IOException {
         //hello i am ruining the code by useless comments
+
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
         Parent root = FXMLLoader.load(getClass().getResource("Fxmls/Mushaf.fxml"));
         Scene scene = new Scene(root);
+
         primaryStage.setTitle("Muslim Qibla");
         primaryStage.setScene(scene);
+
         primaryStage.setMinHeight(490);
         //hello i am ruining the code by useless comments
         primaryStage.setMinWidth(800);
-        primaryStage.setWidth(1440);
 
+        primaryStage.setWidth(1440);
         primaryStage.setHeight(800);
         //hello i am ruining the code by useless comments
-//        primaryStage.setMaximized(true);
 
-        try {
-            primaryStage.show();
-            System.out.println(primaryStage.getY());
-        }catch (Exception e){
-            //hello i am ruining the code by useless comments
-            System.out.println("nooo");
-        }
+//        primaryStage.setMaximized(true);
+        primaryStage.show();
     }
     //hello i am ruining the code by useless comments
 }
