@@ -27,9 +27,9 @@ public class main  extends Application{
         primaryStage.setTitle("Muslim Qibla");
         primaryStage.setScene(scene);
 
+        primaryStage.setMinWidth(780);
         primaryStage.setMinHeight(490);
         //hello i am ruining the code by useless comments
-        primaryStage.setMinWidth(800);
 
         primaryStage.setWidth(1440);
         primaryStage.setHeight(800);
