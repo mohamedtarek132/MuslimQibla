@@ -84,6 +84,8 @@ public class Mushaf implements Initializable{
     Text additionText;
     @FXML
     Rectangle additionRec;
+    @FXML
+    TextField surahSearchTextField;
     char []arabicNumbers = new char[]{'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
     @FXML
     ChangeListener<Number> quranRectangleHeightListener =(observableValue, number, t1) -> {
@@ -127,6 +129,7 @@ public class Mushaf implements Initializable{
 
         if(newAnchorWidth >= baseAnchorWidth){
             newQuranRecWidth = newAnchorWidth - (baseAnchorWidth - newQuranRecWidth);
+            quranRectangle.setWidth(newQuranRecWidth);
             menu.setWidth(newMenuWidth);
             scrollMenu.setPrefWidth(newScrollMenuWidth);
             ayahSearchField.setPrefWidth(450);
@@ -146,10 +149,12 @@ public class Mushaf implements Initializable{
             juz.setLayoutX(425);
             juzButton.setLayoutX(219.2);
             additionTextField.setPrefWidth(400);
-            additionTextField.setLayoutX(590 + differenceBetweenNewAndBaseAnchorWidth);
+            additionTextField.setLayoutX(menu.getLayoutX()+newMenuWidth - (400)-45);
 
-
+            surahSearchTextField.setPrefWidth(240);
         }else if (newAnchorWidth < baseAnchorWidth && newAnchorWidth > baseAnchorWidth - xOffset){
+            quranRectangle.setWidth(newQuranRecWidth);
+
             quranRectangle.setLayoutX(219 + differenceBetweenNewAndBaseAnchorWidth);
             rightArrow.setLayoutX(290 + differenceBetweenNewAndBaseAnchorWidth);
             searchIcon.setLayoutX(634.4 + differenceBetweenNewAndBaseAnchorWidth);
@@ -173,23 +178,44 @@ public class Mushaf implements Initializable{
             scrollMenu.setPrefWidth(newScrollMenuWidth);
             ayahSearchField.setPrefWidth(450);
             additionTextField.setPrefWidth(400);
+            surahSearchTextField.setPrefWidth(300);
 
         }else if (newAnchorWidth <= baseAnchorWidth - xOffset){
             newQuranRecWidth = newAnchorWidth - (baseAnchorWidth - newQuranRecWidth - xOffset);
+            quranRectangle.setWidth(newQuranRecWidth);
             int min = 1100;
             if(newAnchorWidth >= min) {
                 newMenuWidth = differenceBetweenNewAndBaseAnchorWidth + (newMenuWidth + xOffset);
                 newScrollMenuWidth = differenceBetweenNewAndBaseAnchorWidth + (newScrollMenuWidth + xOffset);
+                menu.setWidth(newMenuWidth);
+                scrollMenu.setPrefWidth(newScrollMenuWidth);
+                double difference = additionTextField.getWidth() - (differenceBetweenNewAndBaseAnchorWidth + 400 + xOffset);
                 additionTextField.setPrefWidth(differenceBetweenNewAndBaseAnchorWidth + 400 + xOffset);
+                additionTextField.setLayoutX(590-xOffset);
 
+                ayahSearchField.setPrefWidth(newAyahSearchRecWidth);
+                searchIcon.setLayoutX(634.4 + differenceBetweenNewAndBaseAnchorWidth);
+
+                double newss = 300 + xOffset + differenceBetweenNewAndBaseAnchorWidth;
+                if(surahSearchTextField.getWidth() > 150 || surahSearchTextField.getWidth() < newss){
+                    surahSearchTextField.setPrefWidth(newss);
+                }else{
+                    surahSearchTextField.setPrefWidth(150);
+                }
             }else{
                 newMenuWidth = (min - baseAnchorWidth) + (newMenuWidth + xOffset);
                 newScrollMenuWidth = (min - baseAnchorWidth) + (newScrollMenuWidth + xOffset);
-                additionTextField.setLayoutX(menu.getLayoutX() + 240);
-            }
 
-            menu.setWidth(newMenuWidth);
-            scrollMenu.setPrefWidth(newScrollMenuWidth);
+                menu.setWidth(newMenuWidth);
+                scrollMenu.setPrefWidth(newScrollMenuWidth);
+                additionTextField.setPrefWidth((1100 - 1440) + 400 + xOffset);
+                additionTextField.setLayoutX(menu.getLayoutX()+newMenuWidth - ((1100 - 1440) + 400 + xOffset)-45);
+
+                newAyahSearchRecWidth = 1100 - (baseAnchorWidth - 450 - xOffset);
+                ayahSearchField.setPrefWidth(newAyahSearchRecWidth);
+                searchIcon.setLayoutX(634.4 - 340);
+                surahSearchTextField.setPrefWidth(150);
+            }
 
             quranRectangle.setLayoutX(219 - xOffset);
             rightArrow.setLayoutX(290- xOffset);
@@ -199,19 +225,8 @@ public class Mushaf implements Initializable{
             surahButton.setLayoutX(532 - xOffset);
             juz.setLayoutX(425 - xOffset);
             juzButton.setLayoutX(219.2 - xOffset);
-
-            if(anchor.getWidth() >= 1100) {
-                ayahSearchField.setPrefWidth(newAyahSearchRecWidth);
-                searchIcon.setLayoutX(634.4 + differenceBetweenNewAndBaseAnchorWidth);
-            } else{
-                newAyahSearchRecWidth = 1100 - (baseAnchorWidth - 450 - xOffset);
-                ayahSearchField.setPrefWidth(newAyahSearchRecWidth);
-                searchIcon.setLayoutX(634.4 - 340);
-            }
             ayahSearchField.setLayoutX(220 - xOffset);
-
         }
-        quranRectangle.setWidth(newQuranRecWidth);
     });
     ChangeListener<Number> anchorHeightListener = ((observableValue, oldValue, newValue) -> {
         scrollMenu.setPrefHeight((newValue.doubleValue() - 1024) + (645));
@@ -236,6 +251,7 @@ public class Mushaf implements Initializable{
             additionText.setLayoutX(newValue.doubleValue());
             additionButton.setLayoutX(newValue.doubleValue());
             deleteButton.setLayoutX(newValue.doubleValue() + 140);
+            surahSearchTextField.setLayoutX(newValue.doubleValue());
         } );
         horizontalLine.endXProperty().addListener((observableValue, oldValue, newValue) ->{
             menuTitle.setWrappingWidth(newValue.doubleValue());
@@ -332,7 +348,16 @@ public class Mushaf implements Initializable{
 
         additionText.toBack();
 
+        surahSearchTextField = new TextField();
+        surahSearchTextField.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/textField.css");
+        surahSearchTextField.setFont(Font.font("noon", 16));
+        surahSearchTextField.setPrefWidth(300);
+        surahSearchTextField.setAlignment(Pos.CENTER_RIGHT);
+        surahSearchTextField.setStyle("-fx-padding: 2.5 15 2.5 0");
+        anchor.getChildren().add(surahSearchTextField);
+        AnchorPane.setTopAnchor(surahSearchTextField, 800-665d);
 
+        surahSearchTextField.toBack();
 
         bindWidth();
 
@@ -361,6 +386,7 @@ public class Mushaf implements Initializable{
         additionButton.toBack();
         additionTextField.toBack();
         additionText.toBack();
+        surahSearchTextField.toBack();
     }
     public String toArabicNumbers(int number) {
         String pageNumber = "";
@@ -608,6 +634,7 @@ public class Mushaf implements Initializable{
         }
         setScrollMenuAndMenuTitle("الإنتقال الى سورة", surahs, 2);
         menuToFront();
+        surahSearchTextField.toFront();
     }
     public void pageMenu(ActionEvent ae){
         GridPane gridPane = new GridPane();
@@ -752,6 +779,7 @@ public class Mushaf implements Initializable{
         verticalLine.setEndY(50 * 15);
 
         verticalLine.toFront();
+
         //hello i am ruining the code by useless comments
     }
     //hello i am ruining the code by useless comments
