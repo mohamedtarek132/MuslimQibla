@@ -86,6 +86,9 @@ public class Mushaf implements Initializable{
     Rectangle additionRec;
     @FXML
     TextField surahSearchTextField;
+    String buttonCss = getClass().getResource("../Css_Files/button.css").toExternalForm();
+    String textFieldCss = getClass().getResource("../Css_Files/textField.css").toExternalForm();
+    String scrollPaneCss = getClass().getResource("../Css_Files/scrollPane.css").toExternalForm();
     char []arabicNumbers = new char[]{'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
     @FXML
     ChangeListener<Number> quranRectangleHeightListener =(observableValue, number, t1) -> {
@@ -151,7 +154,7 @@ public class Mushaf implements Initializable{
             additionTextField.setPrefWidth(400);
             additionTextField.setLayoutX(menu.getLayoutX()+newMenuWidth - (400)-45);
 
-            surahSearchTextField.setPrefWidth(240);
+            surahSearchTextField.setPrefWidth(300);
         }else if (newAnchorWidth < baseAnchorWidth && newAnchorWidth > baseAnchorWidth - xOffset){
             quranRectangle.setWidth(newQuranRecWidth);
 
@@ -197,7 +200,7 @@ public class Mushaf implements Initializable{
                 searchIcon.setLayoutX(634.4 + differenceBetweenNewAndBaseAnchorWidth);
 
                 double newss = 300 + xOffset + differenceBetweenNewAndBaseAnchorWidth;
-                if(surahSearchTextField.getWidth() > 150 || surahSearchTextField.getWidth() < newss){
+                if(150 < newss){
                     surahSearchTextField.setPrefWidth(newss);
                 }else{
                     surahSearchTextField.setPrefWidth(150);
@@ -299,7 +302,7 @@ public class Mushaf implements Initializable{
         horizontalLine2.toBack();
 
         saveButton = new Button("حفظ");
-        saveButton.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+        saveButton.getStylesheets().add(buttonCss);
         saveButton.setLayoutY(135);
         saveButton.setPrefWidth(130);
         saveButton.setPrefHeight(20);
@@ -308,7 +311,7 @@ public class Mushaf implements Initializable{
         saveButton.toBack();
 
         deleteButton = new Button("حفظ");
-        deleteButton.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+        deleteButton.getStylesheets().add(buttonCss);
         deleteButton.setLayoutY(135);
         deleteButton.setPrefWidth(130);
         deleteButton.setPrefHeight(20);
@@ -317,7 +320,7 @@ public class Mushaf implements Initializable{
         deleteButton.toBack();
 
         additionButton = new Button("إضافة");
-        additionButton.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+        additionButton.getStylesheets().add(buttonCss);
         additionButton.setPrefWidth(130);
         additionButton.setPrefHeight(20);
         additionButton.setFont(Font.font("Tajwal",16));
@@ -326,7 +329,7 @@ public class Mushaf implements Initializable{
         additionButton.toBack();
 
         additionTextField = new TextField();
-        additionTextField.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/textField.css");
+        additionTextField.getStylesheets().add(textFieldCss);
         additionTextField.setFont(Font.font("noon", 16));
         additionTextField.setPrefWidth(400);
         additionTextField.setAlignment(Pos.CENTER_RIGHT);
@@ -349,7 +352,7 @@ public class Mushaf implements Initializable{
         additionText.toBack();
 
         surahSearchTextField = new TextField();
-        surahSearchTextField.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/textField.css");
+        surahSearchTextField.getStylesheets().add(textFieldCss);
         surahSearchTextField.setFont(Font.font("noon", 16));
         surahSearchTextField.setPrefWidth(300);
         surahSearchTextField.setAlignment(Pos.CENTER_RIGHT);
@@ -505,7 +508,7 @@ public class Mushaf implements Initializable{
         scrollMenu.setPrefHeight(prefHeight);
         scrollMenu.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollMenu.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollMenu.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/scrollPane.css");
+        scrollMenu.getStylesheets().add(scrollPaneCss);
 
         menuTitle.setFont(Font.font("noon" , 36));
 //        changeFont2(menuTitle.getWrappingWidth());
@@ -547,7 +550,7 @@ public class Mushaf implements Initializable{
             surahName.getChildren().add(name);
 
             Button button = new Button();
-            button.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+            button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(45);
             button.setFont(Font.font("noon",22));
@@ -655,7 +658,7 @@ public class Mushaf implements Initializable{
 
         for (int i = 1; i <= 300; i++) {
             Button button = new Button();
-            button.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+            button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
@@ -675,7 +678,7 @@ public class Mushaf implements Initializable{
 
         for (int i = 0; i < 301; i++) {
             Button button = new Button();
-            button.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+            button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
@@ -729,7 +732,7 @@ public class Mushaf implements Initializable{
 
         for (int i = 1; i <= 15; i++) {
             Button button = new Button();
-            button.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+            button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
@@ -749,7 +752,7 @@ public class Mushaf implements Initializable{
 
         for (int i = 0; i < 15; i++) {
             Button button = new Button();
-            button.getStylesheets().add("file:/C:/Users/hp/Documents/Programming%20projects/Java%20Projects/out/production/Java%20Projects/Muslim_Qibla/Css_Files/button.css");
+            button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
