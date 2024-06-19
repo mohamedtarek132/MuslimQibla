@@ -1,15 +1,13 @@
-package Muslim_Qibla.Controllers;
+package MuslimQibla.Controllers;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -86,9 +84,9 @@ public class Mushaf implements Initializable{
     Rectangle additionRec;
     @FXML
     TextField surahSearchTextField;
-    String buttonCss = getClass().getResource("../Css_Files/button.css").toExternalForm();
-    String textFieldCss = getClass().getResource("../Css_Files/textField.css").toExternalForm();
-    String scrollPaneCss = getClass().getResource("../Css_Files/scrollPane.css").toExternalForm();
+    String buttonCss = getClass().getResource("../CssFiles/button.css").toExternalForm();
+    String textFieldCss = getClass().getResource("../CssFiles/textField.css").toExternalForm();
+    String scrollPaneCss = getClass().getResource("../CssFiles/scrollPane.css").toExternalForm();
     char []arabicNumbers = new char[]{'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
     @FXML
     ChangeListener<Number> quranRectangleHeightListener =(observableValue, number, t1) -> {
@@ -599,7 +597,6 @@ public class Mushaf implements Initializable{
 
         additionButton.setText("إضافة");
         additionButton.toFront();
-
 
         additionTextField.toFront();
 

@@ -1,4 +1,4 @@
-package Muslim_Qibla.Controllers;
+package MuslimQibla.Controllers;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 

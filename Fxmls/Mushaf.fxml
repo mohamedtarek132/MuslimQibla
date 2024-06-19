@@ -14,14 +14,14 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="145.0" minWidth="706.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Muslim_Qibla.Controllers.Mushaf">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="145.0" minWidth="706.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MuslimQibla.Controllers.Mushaf">
    <children>
       <Text fx:id="menuTitle" fill="WHITE" layoutX="586.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="الإنتقال الى صفحة" textOrigin="CENTER">
          <font>
             <Font name="Noon" size="38.0" />
          </font>
       </Text>
-      <ScrollPane fx:id="scrollMenu" hbarPolicy="NEVER" layoutX="441.0" layoutY="210.0" prefHeight="613.0" prefWidth="590.0" stylesheets="@../Css_Files/scrollPane.css" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="scrollMenu" hbarPolicy="NEVER" layoutX="441.0" layoutY="210.0" prefHeight="613.0" prefWidth="590.0" stylesheets="@../CssFiles/scrollPane.css" vbarPolicy="ALWAYS">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" opacity="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>
@@ -31,11 +31,11 @@
       <Rectangle fx:id="shadeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#232323" onMouseClicked="#menuToBack" opacity="0.5" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ImageView fx:id="backgroundImage" cache="true" cacheHint="QUALITY" fitHeight="1024.0" fitWidth="1440.0" layoutX="76.8" layoutY="8.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../Files/Mus'haf.png" />
+            <Image url="@../Images/Mus'haf.png" />
          </image>
       </ImageView>
       <Rectangle fx:id="ayahSearchRec" arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="50.0" layoutX="220.0" layoutY="47.0" pickOnBounds="true" stroke="#dfdbe1" strokeType="INSIDE" visible="false" width="450.0" AnchorPane.topAnchor="47.0" />
-      <TextField fx:id="ayahSearchField" alignment="TOP_RIGHT" focusTraversable="false" layoutX="220.0" layoutY="47.0" pickOnBounds="false" prefHeight="50.0" prefWidth="450.0" promptText="ابحث" stylesheets="@../Css_Files/textField.css" AnchorPane.topAnchor="45.6">
+      <TextField fx:id="ayahSearchField" alignment="TOP_RIGHT" focusTraversable="false" layoutX="220.0" layoutY="47.0" pickOnBounds="false" prefHeight="50.0" prefWidth="450.0" promptText="ابحث" stylesheets="@../CssFiles/textField.css" AnchorPane.topAnchor="45.6">
          <font>
             <Font name="KFGQPC HAFS Uthmanic Script Regular" size="18.0" />
          </font>
@@ -60,7 +60,7 @@
       </Text>
       <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="1335.2" layoutY="38.2" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="38.2">
          <image>
-            <Image url="@../Files/menu.png" />
+            <Image url="@../Images/menu.png" />
          </image>
       </ImageView>
       <Button layoutX="1332.0" layoutY="42.2" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="67.0" textFill="#7e2092" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="42.2" />
@@ -85,34 +85,34 @@
       </TextFlow>
       <Polyline fx:id="rightArrow" fill="CHARTREUSE" layoutX="200.0" layoutY="666.0" points="-25.20001220703125, -70.0, -44.39994812011719, -89.20001220703125, -25.20001220703125, -110.0, -44.40008544921875, -89.20001220703125" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.topAnchor="537.7000122070312" />
       <Polyline fx:id="leftArrow" fill="CHARTREUSE" layoutX="290.0" layoutY="666.0" points="832.0, -82.79998779296875, 848.0, -102.39996337890625, 832.0, -122.79998779296875, 848.0, -102.39996337890625" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.rightAnchor="296.5" AnchorPane.topAnchor="537.7000122070312" />
-      <Button fx:id="surahButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="532.0" layoutY="126.4000015258789" mnemonicParsing="false" onAction="#surahMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../Css_Files/button.css" text="الكهف" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="126.4000015258789">
+      <Button fx:id="surahButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="532.0" layoutY="126.4000015258789" mnemonicParsing="false" onAction="#surahMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../CssFiles/button.css" text="الكهف" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="126.4000015258789">
          <font>
             <Font name="Tajawal" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="juzButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="219.1999969482422" layoutY="126.4000015258789" mnemonicParsing="false" onAction="#juzMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../Css_Files/button.css" text="الخامس عشر" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="126.4000015258789">
+      <Button fx:id="juzButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="219.1999969482422" layoutY="126.4000015258789" mnemonicParsing="false" onAction="#juzMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../CssFiles/button.css" text="الخامس عشر" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="126.4000015258789">
          <font>
             <Font name="Tajawal" size="20.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="1195.0" layoutY="136.0" mnemonicParsing="false" onAction="#saveMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../Css_Files/button.css" text="حفظ علامة" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="186.0">
+      <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="1195.0" layoutY="136.0" mnemonicParsing="false" onAction="#saveMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../CssFiles/button.css" text="حفظ علامة" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="186.0">
          <font>
             <Font name="Tajawal" size="20.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="1205.0" layoutY="146.0" mnemonicParsing="false" onAction="#savepointMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../Css_Files/button.css" text="علامات" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="44.800048828125" AnchorPane.topAnchor="247.1999969482422">
+      <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="1205.0" layoutY="146.0" mnemonicParsing="false" onAction="#savepointMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../CssFiles/button.css" text="علامات" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="44.800048828125" AnchorPane.topAnchor="247.1999969482422">
          <font>
             <Font name="Tajawal" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="pageButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="640.7999877929688" layoutY="955.0" mnemonicParsing="false" onAction="#pageMenu" prefHeight="43.0" prefWidth="158.0" stylesheets="@../Css_Files/button.css" text="۳۰۲" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="20.606274414062497">
+      <Button fx:id="pageButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="640.7999877929688" layoutY="955.0" mnemonicParsing="false" onAction="#pageMenu" prefHeight="43.0" prefWidth="158.0" stylesheets="@../CssFiles/button.css" text="۳۰۲" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="20.606274414062497">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
       </Button>
       <ImageView fx:id="searchIcon" fitHeight="20.0" fitWidth="20.0" layoutX="634.4" layoutY="62.2" AnchorPane.topAnchor="62.2">
          <image>
-            <Image url="@../Files/search.png" />
+            <Image url="@../Images/search.png" />
          </image>
       </ImageView>
    </children>
