@@ -9,16 +9,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-//hello i am ruining the code by useless comments
-public class main  extends Application{
+public class Main extends Application{
     public static void main(String[] args) {
         launch(args);
-        AnchorPane d = new AnchorPane();
     }
     @Override
     public void start(Stage primaryStage) throws IOException {
-        //hello i am ruining the code by useless comments
-
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
         Parent root = FXMLLoader.load(getClass().getResource("Fxmls/Mushaf.fxml"));
         Scene scene = new Scene(root);
@@ -28,14 +24,11 @@ public class main  extends Application{
 
         primaryStage.setMinWidth(780);
         primaryStage.setMinHeight(490);
-        //hello i am ruining the code by useless comments
 
         primaryStage.setWidth(1440);
         primaryStage.setHeight(800);
-        //hello i am ruining the code by useless comments
 
-//        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
-    //hello i am ruining the code by useless comments
 }
