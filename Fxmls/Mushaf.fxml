@@ -83,8 +83,8 @@
             </Text>
          </children>
       </TextFlow>
-      <Polyline fx:id="rightArrow" fill="CHARTREUSE" layoutX="200.0" layoutY="666.0" points="-25.20001220703125, -70.0, -44.39994812011719, -89.20001220703125, -25.20001220703125, -110.0, -44.40008544921875, -89.20001220703125" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.topAnchor="537.7000122070312" />
-      <Polyline fx:id="leftArrow" fill="CHARTREUSE" layoutX="290.0" layoutY="666.0" points="832.0, -82.79998779296875, 848.0, -102.39996337890625, 832.0, -122.79998779296875, 848.0, -102.39996337890625" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.rightAnchor="296.5" AnchorPane.topAnchor="537.7000122070312" />
+      <Polyline fx:id="rightArrow" fill="CHARTREUSE" layoutX="200.0" layoutY="666.0" onMouseClicked="#incrementPage" points="-25.20001220703125, -70.0, -44.39994812011719, -89.20001220703125, -25.20001220703125, -110.0, -44.40008544921875, -89.20001220703125" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.topAnchor="537.7000122070312" />
+      <Polyline fx:id="leftArrow" fill="CHARTREUSE" layoutX="290.0" layoutY="666.0" onMouseClicked="#decrementPage" points="832.0, -82.79998779296875, 848.0, -102.39996337890625, 832.0, -122.79998779296875, 848.0, -102.39996337890625" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.rightAnchor="296.5" AnchorPane.topAnchor="537.7000122070312" />
       <Button fx:id="surahButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="532.0" layoutY="126.4000015258789" mnemonicParsing="false" onAction="#surahMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../CssFiles/button.css" text="الكهف" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="126.4000015258789">
          <font>
             <Font name="Tajawal" size="20.0" />

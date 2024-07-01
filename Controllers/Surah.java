@@ -1,5 +1,6 @@
 package MuslimQibla.Controllers;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class Surah {
@@ -9,6 +10,8 @@ public class Surah {
     Text pageNumber;
     @FXML
     Text numberOfAyat;
+    @FXML
+    public Button surahButton;
     public void setSurahNumber(String text)
     {
         surahNumber.setText(text);

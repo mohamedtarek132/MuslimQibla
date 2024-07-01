@@ -1,6 +1,9 @@
 package MuslimQibla.Controllers;
+import MuslimQibla.Classes.Ayah;
+import MuslimQibla.Classes.Page;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +27,10 @@ import javafx.scene.text.*;
 //hello i am ruining the code by useless comments
 import java.io.IOException;
 import java.net.URL;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class Mushaf implements Initializable{
     @FXML
@@ -42,7 +48,6 @@ public class Mushaf implements Initializable{
     @FXML
     Line horizontalLine2;
     @FXML
-            //hello i am ruining the code by useless comments
     Rectangle quranRectangle;
     @FXML
     TextFlow quranBody;
@@ -88,6 +93,9 @@ public class Mushaf implements Initializable{
     String textFieldCss = getClass().getResource("../CssFiles/textField.css").toExternalForm();
     String scrollPaneCss = getClass().getResource("../CssFiles/scrollPane.css").toExternalForm();
     char []arabicNumbers = new char[]{'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+    public static Ayah[] ayat;
+    public static Page[] pages;
+    public static LinkedHashMap<String, MuslimQibla.Classes.Surah> swarh = new LinkedHashMap<String, MuslimQibla.Classes.Surah>();
     @FXML
     ChangeListener<Number> quranRectangleHeightListener =(observableValue, number, t1) -> {
         double half = quranRectangle.getLayoutY() + quranRectangle.getHeight()/2 - 25;
@@ -95,7 +103,7 @@ public class Mushaf implements Initializable{
         double top = quranRectangle.getLayoutY() + quranRectangle.getHeight() * ( x/761);
         AnchorPane.setTopAnchor(leftArrow, half);
         AnchorPane.setTopAnchor(rightArrow, half);
-        AnchorPane.setTopAnchor(quranBody,top);
+//        AnchorPane.setTopAnchor(quranBody,top);
     };
     @FXML
     ChangeListener<Number> quranRectangleWidthListener = ((observableValue, number, t1) -> {
@@ -150,7 +158,7 @@ public class Mushaf implements Initializable{
             juz.setLayoutX(425);
             juzButton.setLayoutX(219.2);
             additionTextField.setPrefWidth(400);
-            additionTextField.setLayoutX(menu.getLayoutX()+newMenuWidth - (400)-45);
+            additionTextField.setLayoutX(menu.getLayoutX() + newMenuWidth - (400) - 45);
 
             surahSearchTextField.setPrefWidth(300);
         }else if (newAnchorWidth < baseAnchorWidth && newAnchorWidth > baseAnchorWidth - xOffset){
@@ -366,6 +374,8 @@ public class Mushaf implements Initializable{
 
         addListeners();
 
+        changePage(597);
+
     }
     public void menuToFront(){
         shadeRectangle.toFront();
@@ -389,7 +399,7 @@ public class Mushaf implements Initializable{
         additionText.toBack();
         surahSearchTextField.toBack();
     }
-    public String toArabicNumbers(int number) {
+    public String fromIntegerToArabicNumbers(int number) {
         String pageNumber = "";
         int temp = number;
         while(temp !=0){
@@ -399,6 +409,19 @@ public class Mushaf implements Initializable{
         }
 
         pageNumber = new StringBuilder(pageNumber).reverse().toString();
+
+        return pageNumber;
+    }
+    public int fromArabicNumbersToInteger(String number){
+        int pageNumber = 0;
+        for(int i = 0; i < number.length(); i++){
+            for(int j = 0; j < arabicNumbers.length; j++){
+                if(number.charAt(i) == arabicNumbers[j]){
+                    pageNumber = pageNumber * 10 + j;
+                    break;
+                }
+            }
+        }
 
         return pageNumber;
     }
@@ -419,19 +442,28 @@ public class Mushaf implements Initializable{
 
             if (proportion < 0.05){
                 size = (size * (proportion + 0.2));
+                System.out.println("1");
             }
             else if (proportion < 0.1){
                 size = (size * (proportion + 0.24));
+                System.out.println("2");
+
             }else if (proportion < 0.2){
                 size = (size * (proportion + 0.28));
+                System.out.println("3");
+
             }
             else if (proportion <= 0.51){
                 size = (size * (proportion + 0.285));
+                System.out.println("4");
+
             }else if (proportion <= 1){
                 size = (size * (proportion + 0.22));
             }else{
                 size = (size * (proportion + 0.2));
             }
+            size = (size * (proportion + 0.24));
+
 
             for (int i = 0; i < quranBody.getChildren().size(); i++) {
                 if(quranBody.getChildren().get(i) instanceof Text) {
@@ -625,11 +657,22 @@ public class Mushaf implements Initializable{
     }
     public void surahMenu(ActionEvent ae) throws IOException {
         VBox surahs = new VBox(17);
-        for(int i = 0; i < 113; i++){
+        Set<String> keys = swarh.keySet();
+        for(String key: keys){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Fxmls/surah.fxml"));
             AnchorPane surah = loader.load();
             Surah temp = loader.getController();
-            temp.setSurahNumber(toArabicNumbers(i + 1));
+            temp.setSurahNumber(fromIntegerToArabicNumbers(swarh.get(key).number));
+            temp.numberOfAyat.setText(fromIntegerToArabicNumbers(swarh.get(key).numberOfAyat));
+            temp.pageNumber.setText(fromIntegerToArabicNumbers(swarh.get(key).pageNumber));
+            temp.surahButton.setText(swarh.get(key).name);
+            temp.surahButton.setOnAction(event -> {
+                Object node = event.getSource(); //returns the object that generated the event
+                //since the returned object is a Button you can cast it to one
+                Button b = (Button)node;
+                changePage(swarh.get(b.getText()).pageNumber);//prints out Click Me
+                menuToBack();
+            });
             surahs.getChildren().add(surah);
         }
         setScrollMenuAndMenuTitle("الإنتقال الى سورة", surahs, 2);
@@ -653,19 +696,27 @@ public class Mushaf implements Initializable{
 
         gridPane.getColumnConstraints().add(new ColumnConstraints(250));
 
-        for (int i = 1; i <= 300; i++) {
+        for (int i = 1; i <= 302; i++) {
             Button button = new Button();
             button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
+            button.setOnAction(event -> {
+                Object node = event.getSource(); //returns the object that generated the event
+                //since the returned object is a Button you can cast it to one
+                Button b = (Button)node;
+                changePage(fromArabicNumbersToInteger(b.getText().replace("صفحة ", "")));//prints out Click Me
+                menuToBack();
+            });
 
-            String pageNumber = toArabicNumbers(i * 2);
+            int pageNumber = i * 2;
+            String pageNumberInArabic = fromIntegerToArabicNumbers(i * 2);
 
-            button.setText("صفحة " + pageNumber);
+            button.setText("صفحة " + pageNumberInArabic);
             leftGridButtons.getChildren().add(button);
 
-            Text text = new Text("البَقَرَة");
+            Text text = new Text(pages[pageNumber - 1].surahName);
             text.setFont(Font.font("noon",22));
             text.setFill(Paint.valueOf("White"));
             text.setFontSmoothingType(FontSmoothingType.GRAY);
@@ -673,19 +724,26 @@ public class Mushaf implements Initializable{
             leftGridSurahNames.getChildren().add(text);
         }
 
-        for (int i = 0; i < 301; i++) {
+        for (int i = 0; i < 302; i++) {
             Button button = new Button();
             button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
+            button.setOnAction(event -> {
+                Object node = event.getSource(); //returns the object that generated the event
+                //since the returned object is a Button you can cast it to one
+                Button b = (Button)node;
+                changePage(fromArabicNumbersToInteger(b.getText().replace("صفحة ", "")));//prints out Click Me
+                menuToBack();
+            });
+            int pageNumber = i * 2 + 1;
+            String pageNumberInArabic = fromIntegerToArabicNumbers(i * 2 + 1);
 
-            String pageNumber = toArabicNumbers(i * 2 + 1);
-
-            button.setText("صفحة " + pageNumber);
+            button.setText("صفحة " + pageNumberInArabic);
             rightGridButtons.getChildren().add(button);
 
-            Text text = new Text("الفَاتِحَة");
+            Text text = new Text(pages[pageNumber - 1].surahName);
             text.setFont(Font.font("noon",22));
             text.setFill(Paint.valueOf("White"));
             text.setFontSmoothingType(FontSmoothingType.GRAY);
@@ -734,7 +792,7 @@ public class Mushaf implements Initializable{
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
 
-            String juzNumber = toArabicNumbers(i*2);
+            String juzNumber = fromIntegerToArabicNumbers(i*2);
 
             button.setText("الجزء  " + juzNumber);
 
@@ -754,7 +812,7 @@ public class Mushaf implements Initializable{
             button.setPrefHeight(40);
             button.setFont(Font.font("Tajwal",16));
 
-            String juzNumber = toArabicNumbers(i * 2 + 1);
+            String juzNumber = fromIntegerToArabicNumbers(i * 2 + 1);
 
             button.setText("الجزء  " + juzNumber);
             rightGridButtons.getChildren().add(button);
@@ -783,4 +841,106 @@ public class Mushaf implements Initializable{
         //hello i am ruining the code by useless comments
     }
     //hello i am ruining the code by useless comments
+
+    /**
+     * change the text in text field to the next page in the mushaf
+     */
+    public void changePage(int pageNumber){
+        quranBody.getChildren().clear();
+        int ayahNumber = pages[pageNumber-1].ayahNumber;
+        Ayah ayah = ayat[ayahNumber];
+        String surah = ayah.surah;
+//        juzButton.setText();
+
+        surahButton.setText(ayah.surah);
+        surahButton.setFont(Font.font("KFGQPC HAFS Uthmanic Script", 24));
+        surahButton.setStyle("-fx-padding: -12 0 0 0");
+
+        pageButton.setText(fromIntegerToArabicNumbers(pageNumber));
+        if((ayahNumber != 0) &&
+          (ayah.ayahNumber == 1 &&
+          (ayat[ayahNumber - 1].ayah.equals("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ") ||
+           ayat[ayahNumber - 1].ayah.strip().equals("بِّسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ")))){
+
+            Text surahName = new Text();
+            surahName.setText("سُورَةُ " + ayah.surah + "\n");
+            surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+            surahName.setFill(Paint.valueOf("black"));
+            surahName.setFontSmoothingType(FontSmoothingType.GRAY);
+            quranBody.getChildren().add(surahName);
+
+            Text basmallah = new Text();
+            basmallah.setText("سُورَةُ " + ayat[ayahNumber - 1].ayah + "\n");
+            basmallah.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+            basmallah.setFill(Paint.valueOf("black"));
+            basmallah.setFontSmoothingType(FontSmoothingType.GRAY);
+            quranBody.getChildren().add(basmallah);
+        } else if (ayah.ayahNumber == 1 || ayahNumber == 0) {
+            Text surahName = new Text();
+            surahName.setText("سُورَةُ " + ayah.surah + "\n");
+            surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+            surahName.setFill(Paint.valueOf("black"));
+            surahName.setFontSmoothingType(FontSmoothingType.GRAY);
+            quranBody.getChildren().add(surahName);
+        }
+
+        while(ayat[ayahNumber].pageNumber == pageNumber){
+            ayah = ayat[ayahNumber];
+
+            if (ayah.ayahNumber == 0) {
+                Text surahName = new Text();
+                surahName.setText("\n" + "سُورَةُ " + ayah.surah + "\n");
+                surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+                surahName.setFill(Paint.valueOf("black"));
+                surahName.setFontSmoothingType(FontSmoothingType.GRAY);
+                quranBody.getChildren().add(surahName);
+
+                Text basmallah = new Text();
+                basmallah.setText(ayat[ayahNumber].ayah + "\n");
+                basmallah.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+                basmallah.setFill(Paint.valueOf("black"));
+                basmallah.setFontSmoothingType(FontSmoothingType.GRAY);
+                quranBody.getChildren().add(basmallah);
+            }else{
+                Text ayahText = new Text();
+
+                ayahText.setText(ayah.ayah + "\u200E" + fromIntegerToArabicNumbers(ayah.ayahNumber) + " ");
+                ayahText.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+                ayahText.setFill(Paint.valueOf("black"));
+                ayahText.setFontSmoothingType(FontSmoothingType.GRAY);
+                quranBody.getChildren().add(ayahText);
+            }
+
+            ayahNumber++;
+
+            if(ayahNumber == 6348){
+                break;
+            }
+        }
+        changeFont(quranBody.getHeight(), "h");
+        changeFont(quranBody.getWidth(), "w");
+    }
+    public void incrementPage(){
+        int pageNumber = Integer.parseInt(pageButton.getText());
+        if(!fromIntegerToArabicNumbers(pageNumber).equals(fromIntegerToArabicNumbers(604))){
+            int newPageNumber = pages[pageNumber].number;
+            changePage(newPageNumber);
+        }
+    }
+    public void decrementPage(){
+        int pageNumber = Integer.parseInt(pageButton.getText());
+        if(!fromIntegerToArabicNumbers(pageNumber).equals(fromIntegerToArabicNumbers(1))){
+            int newPageNumber = pages[pageNumber - 2].number;
+            changePage(newPageNumber);
+            pageButton.setText(fromIntegerToArabicNumbers(newPageNumber));
+        }
+    }
+    public EventHandler<ActionEvent> changeToPage(ActionEvent ae){
+        Object node = ae.getSource(); //returns the object that generated the event
+        //since the returned object is a Button you can cast it to one
+        Button b = (Button)node;
+        changePage(Integer.parseInt(b.getText()));//prints out Click Me
+        menuToBack();
+        return null;
+    }
 }
