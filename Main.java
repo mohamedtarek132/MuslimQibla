@@ -92,6 +92,7 @@ public class Main extends Application{
 
             //There are some empty paragraphs so I added an if condition to not count them as ayat
             if(paragraph.isEmpty()){
+
                 continue;
             }
             //There are some swarh that start at the start of the page and you can
@@ -107,7 +108,7 @@ public class Main extends Application{
                 Mushaf.swarh.get(surahName).name = surahName;
                 Mushaf.swarh.get(surahName).pageNumber = pageCount;
                 Mushaf.swarh.get(surahName).number = surahNumber + 1;
-
+                System.out.println(surahName);
 //                System.out.println(surahNumber + " " + surahName);
                 surahNumber++;
 

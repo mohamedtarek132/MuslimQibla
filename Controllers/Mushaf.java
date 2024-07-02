@@ -429,7 +429,7 @@ public class Mushaf implements Initializable{
         if (quranBody.getChildren().get(0) instanceof Text && quranBody.getHeight()!=0 && quranBody.getWidth()!=0) {
             Text text = (Text) quranBody.getChildren().get(0);
             String font = text.getFont().getFamily();
-            double size = 32;
+            double size = 28;
             int prefHeight = 800;
             int prefWidth = 800;
             int pref = prefWidth * prefHeight;
@@ -462,13 +462,13 @@ public class Mushaf implements Initializable{
             }else{
                 size = (size * (proportion + 0.2));
             }
-            size = (size * (proportion + 0.24));
+//            size = (size * (proportion + 0.24));
 
 
             for (int i = 0; i < quranBody.getChildren().size(); i++) {
                 if(quranBody.getChildren().get(i) instanceof Text) {
                     Text temp1 = (Text) quranBody.getChildren().get(i);
-                    temp1.setFont(Font.font(font, size));
+                    temp1.setFont(Font.font(font, FontWeight.BOLD, size));
                 }
                 //hello i am ruining the code by useless comments
             }
@@ -853,7 +853,7 @@ public class Mushaf implements Initializable{
 //        juzButton.setText();
 
         surahButton.setText(ayah.surah);
-        surahButton.setFont(Font.font("KFGQPC HAFS Uthmanic Script", 24));
+        surahButton.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD, 24));
         surahButton.setStyle("-fx-padding: -12 0 0 0");
 
         pageButton.setText(fromIntegerToArabicNumbers(pageNumber));
@@ -864,21 +864,21 @@ public class Mushaf implements Initializable{
 
             Text surahName = new Text();
             surahName.setText("سُورَةُ " + ayah.surah + "\n");
-            surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+            surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
             surahName.setFill(Paint.valueOf("black"));
             surahName.setFontSmoothingType(FontSmoothingType.GRAY);
             quranBody.getChildren().add(surahName);
 
             Text basmallah = new Text();
-            basmallah.setText("سُورَةُ " + ayat[ayahNumber - 1].ayah + "\n");
-            basmallah.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+            basmallah.setText(ayat[ayahNumber - 1].ayah + "\n");
+            basmallah.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
             basmallah.setFill(Paint.valueOf("black"));
             basmallah.setFontSmoothingType(FontSmoothingType.GRAY);
             quranBody.getChildren().add(basmallah);
         } else if (ayah.ayahNumber == 1 || ayahNumber == 0) {
             Text surahName = new Text();
             surahName.setText("سُورَةُ " + ayah.surah + "\n");
-            surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+            surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
             surahName.setFill(Paint.valueOf("black"));
             surahName.setFontSmoothingType(FontSmoothingType.GRAY);
             quranBody.getChildren().add(surahName);
@@ -890,14 +890,14 @@ public class Mushaf implements Initializable{
             if (ayah.ayahNumber == 0) {
                 Text surahName = new Text();
                 surahName.setText("\n" + "سُورَةُ " + ayah.surah + "\n");
-                surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+                surahName.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
                 surahName.setFill(Paint.valueOf("black"));
                 surahName.setFontSmoothingType(FontSmoothingType.GRAY);
                 quranBody.getChildren().add(surahName);
 
                 Text basmallah = new Text();
                 basmallah.setText(ayat[ayahNumber].ayah + "\n");
-                basmallah.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+                basmallah.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
                 basmallah.setFill(Paint.valueOf("black"));
                 basmallah.setFontSmoothingType(FontSmoothingType.GRAY);
                 quranBody.getChildren().add(basmallah);
@@ -905,7 +905,7 @@ public class Mushaf implements Initializable{
                 Text ayahText = new Text();
 
                 ayahText.setText(ayah.ayah + "\u200E" + fromIntegerToArabicNumbers(ayah.ayahNumber) + " ");
-                ayahText.setFont(Font.font("KFGQPC HAFS Uthmanic Script",32));
+                ayahText.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
                 ayahText.setFill(Paint.valueOf("black"));
                 ayahText.setFontSmoothingType(FontSmoothingType.GRAY);
                 quranBody.getChildren().add(ayahText);
@@ -917,6 +917,7 @@ public class Mushaf implements Initializable{
                 break;
             }
         }
+        quranBody.setTextAlignment(TextAlignment.CENTER);
         changeFont(quranBody.getHeight(), "h");
         changeFont(quranBody.getWidth(), "w");
     }
