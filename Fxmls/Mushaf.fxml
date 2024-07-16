@@ -51,20 +51,14 @@
          </font>
       </Text>
       <Rectangle fx:id="quranRectangle" arcHeight="30.0" arcWidth="30.0" fill="#f3f3f3" height="761.0" layoutX="219.0" layoutY="187.0" opacity="0.9" stroke="BLACK" strokeType="INSIDE" width="951.0" AnchorPane.bottomAnchor="75.0" AnchorPane.topAnchor="187.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#d1a476" height="100.0" layoutX="1102.6" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="40.0" AnchorPane.rightAnchor="297.4000000000001" AnchorPane.topAnchor="180.0" />
-      <Polygon fill="#e0dbe3" layoutX="1112.0" layoutY="222.0" points="-20.5999755859375, 4.79998779296875, 20.4000244140625, 4.79998779296875, 0.0, -20.20001220703125" stroke="#e0dbe3" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="296.5999755859375" AnchorPane.topAnchor="256.79998779296875" />
+      <Rectangle fx:id="bookMark" arcHeight="10.0" arcWidth="10.0" fill="#d1a476" height="100.0" layoutX="1102.6" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="40.0" AnchorPane.rightAnchor="297.4000000000001" AnchorPane.topAnchor="180.0" />
+      <Polygon fx:id="bookmarkTriangle" fill="#e0dbe3" layoutX="1112.0" layoutY="222.0" points="-20.5999755859375, 4.79998779296875, 20.4000244140625, 4.79998779296875, 0.0, -20.20001220703125" stroke="#e0dbe3" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.rightAnchor="296.5999755859375" AnchorPane.topAnchor="256.79998779296875" />
       <Text boundsType="VISUAL" fill="WHITE" layoutX="1060.6421874999999" layoutY="44.6" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="القرآن الكريم" textAlignment="CENTER" textOrigin="TOP" AnchorPane.rightAnchor="127.34609375000014" AnchorPane.topAnchor="44.6">
          <font>
             <Font name="KFGQPC HAFS Uthmanic Script Regular" size="60.0" />
          </font>
       </Text>
-      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="1335.2" layoutY="38.2" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="38.2">
-         <image>
-            <Image url="@../Images/menu.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="1332.0" layoutY="42.2" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="67.0" textFill="#7e2092" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="42.2" />
-      <TextFlow fx:id="quranBody" layoutX="290.0" layoutY="232.0" prefHeight="640.0" prefWidth="800.0" textAlignment="CENTER" AnchorPane.topAnchor="225.0">
+      <TextFlow fx:id="quranBody" layoutX="290.0" layoutY="232.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="640.0" prefWidth="800.0" textAlignment="CENTER" AnchorPane.topAnchor="225.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="وَإِذَا طَلَّقۡتُمُ ٱلنِّسَآءَ فَبَلَغۡنَ أَجَلَهُنَّ فَأَمۡسِكُوهُنَّ بِمَعۡرُوفٍ أَوۡ سَرِّحُوهُنَّ بِمَعۡرُوفٖۚ وَلَا تُمۡسِكُوهُنَّ ضِرَارٗا لِّتَعۡتَدُواْۚ وَمَن يَفۡعَلۡ ذَٰلِكَ فَقَدۡ ظَلَمَ نَفۡسَهُۥۚ وَلَا تَتَّخِذُوٓاْ ءَايَٰتِ ٱللَّهِ هُزُوٗاۚ وَٱذۡكُرُواْ نِعۡمَتَ ٱللَّهِ عَلَيۡكُمۡ وَمَآ أَنزَلَ عَلَيۡكُم مِّنَ ٱلۡكِتَٰبِ وَٱلۡحِكۡمَةِ يَعِظُكُم بِهِۦۚ وَٱتَّقُواْ ٱللَّهَ وَٱعۡلَمُوٓاْ أَنَّ ٱللَّهَ بِكُلِّ شَيۡءٍ عَلِيمٞ ٢٣١" textAlignment="CENTER" textOrigin="TOP">
                <font>
@@ -83,8 +77,6 @@
             </Text>
          </children>
       </TextFlow>
-      <Polyline fx:id="rightArrow" fill="CHARTREUSE" layoutX="200.0" layoutY="666.0" onMouseClicked="#incrementPage" points="-25.20001220703125, -70.0, -44.39994812011719, -89.20001220703125, -25.20001220703125, -110.0, -44.40008544921875, -89.20001220703125" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.topAnchor="537.7000122070312" />
-      <Polyline fx:id="leftArrow" fill="CHARTREUSE" layoutX="290.0" layoutY="666.0" onMouseClicked="#decrementPage" points="832.0, -82.79998779296875, 848.0, -102.39996337890625, 832.0, -122.79998779296875, 848.0, -102.39996337890625" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" AnchorPane.rightAnchor="296.5" AnchorPane.topAnchor="537.7000122070312" />
       <Button fx:id="surahButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="532.0" layoutY="126.4000015258789" mnemonicParsing="false" onAction="#surahMenu" prefHeight="40.0" prefWidth="200.0" stylesheets="@../CssFiles/button.css" text="الكهف" textAlignment="CENTER" textFill="WHITE" AnchorPane.topAnchor="126.4000015258789">
          <font>
             <Font name="Tajawal" size="20.0" />
@@ -105,6 +97,11 @@
             <Font name="Tajawal" size="20.0" />
          </font>
       </Button>
+      <Button fx:id="rightArrow" layoutX="240.0" layoutY="571.0" mnemonicParsing="false" onAction="#incrementPage" style="-fx-background-color: transparent;">
+         <graphic>
+            <Polyline fill="CHARTREUSE" points="-25.20001220703125, -70.0, -44.39994812011719, -89.20001220703125, -25.20001220703125, -110.0, -44.40008544921875, -89.20001220703125" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" />
+         </graphic>
+      </Button>
       <Button fx:id="pageButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="640.7999877929688" layoutY="955.0" mnemonicParsing="false" onAction="#pageMenu" prefHeight="43.0" prefWidth="158.0" stylesheets="@../CssFiles/button.css" text="۳۰۲" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="20.606274414062497">
          <font>
             <Font name="Arial" size="24.0" />
@@ -115,5 +112,19 @@
             <Image url="@../Images/search.png" />
          </image>
       </ImageView>
+      <Button layoutX="1343.0" layoutY="70.0" mnemonicParsing="false" onAction="#mainMenu" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="40.799999999999955" AnchorPane.topAnchor="42.2">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/menu.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="leftArrow" layoutX="1110.0" layoutY="571.0" mnemonicParsing="false" onAction="#decrementPage" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="306.79999999999995" AnchorPane.topAnchor="571.0">
+         <graphic>
+            <Polyline fill="CHARTREUSE" points="832.0, -82.79998779296875, 848.0, -102.39996337890625, 832.0, -122.79998779296875, 848.0, -102.39996337890625" stroke="#7c6c6c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="3.0" />
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

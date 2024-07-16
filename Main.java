@@ -4,11 +4,13 @@ import MuslimQibla.Classes.Ayah;
 import MuslimQibla.Classes.Page;
 import MuslimQibla.Controllers.Mushaf;
 import MuslimQibla.Classes.Surah;
+import Talabat.Classes.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.pdfbox.Loader;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.model.XWPFHeaderFooterPolicy;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -20,12 +22,15 @@ import org.apache.xmlbeans.XmlException;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-
+import java.util.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 public class Main extends Application{
     /**
@@ -50,6 +55,21 @@ public class Main extends Application{
         } catch (Exception e) {
             e.printStackTrace();
 
+            return null;
+        }
+    }
+
+    public PDDocument loadPDFDocument(String path){
+        try {
+            URL url = getClass().getResource(path);
+
+            File file = new File(url.toURI());
+
+            PDDocument  document = Loader.loadPDF(file);
+
+            return document;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -92,7 +112,6 @@ public class Main extends Application{
 
             //There are some empty paragraphs so I added an if condition to not count them as ayat
             if(paragraph.isEmpty()){
-
                 continue;
             }
             //There are some swarh that start at the start of the page and you can
@@ -108,7 +127,6 @@ public class Main extends Application{
                 Mushaf.swarh.get(surahName).name = surahName;
                 Mushaf.swarh.get(surahName).pageNumber = pageCount;
                 Mushaf.swarh.get(surahName).number = surahNumber + 1;
-                System.out.println(surahName);
 //                System.out.println(surahNumber + " " + surahName);
                 surahNumber++;
 
@@ -140,7 +158,7 @@ public class Main extends Application{
                 Mushaf.ayat[ayatCount].surahNumber = surahNumber;
                 Mushaf.ayat[ayatCount].ayahNumber = numberOfAyatInSurah;
                 Mushaf.ayat[ayatCount].pageNumber = pageCount;
-                Mushaf.ayat[ayatCount].ayah = paragraph;
+                Mushaf.ayat[ayatCount].ayah = paragraph.replace("\u200C\u200D\u200E\u200F", "");
                 Mushaf.ayat[ayatCount].surah = surahName;
 
                 ayatCount++;
@@ -155,9 +173,15 @@ public class Main extends Application{
                 String[] surah = paragraph.split("\\n\\n");
 
                 int counter = 0;
-                for(String i : surah){
+
+                for(String page : surah){
+                    int enterCount = 0;
+
                     // splited the page by the numbers that it gives me ayat
-                    String[] ayat = i.replace("\n", "").split("\\s*[\\u0660-\\u0669]+\\s*");
+                    int length = 0;
+                    System.out.println(page.contains("\u200D"));
+                    String[] ayat = page.split("\\s*[\\u0660-\\u0669]+\\s");
+
                     if(Mushaf.pages[pageCount+counter-1] == null){
                         Mushaf.pages[pageCount+counter-1] = new Page();
                         Mushaf.pages[pageCount+counter-1].number = pageCount + counter;
@@ -169,6 +193,18 @@ public class Main extends Application{
 
                     for(String ayah : ayat){
                         numberOfAyatInSurah++;
+//                        if(ayah.contains("\n")) {
+//                            for(int i = 0; i < ayah.length(); i++){
+//                                if(ayah.charAt(i) == '\n'){
+//                                    enterCount++;
+//                                    if(enterCount % 2 == 1){
+//                                        StringBuilder string = new StringBuilder(ayah);
+//                                        string.setCharAt(i, ' ');
+//                                        ayah = string.toString();
+//                                    }
+//                                }
+//                            }
+//                        }
                         Mushaf.ayat[ayatCount] = new Ayah();
                         Mushaf.ayat[ayatCount].surahNumber = surahNumber;
                         Mushaf.ayat[ayatCount].ayahNumber = numberOfAyatInSurah;
@@ -180,7 +216,6 @@ public class Main extends Application{
 //                        System.out.println(numberOfAyatInSurah);
 //                        System.out.println("رقم الصفحة");
 //                        System.out.println(pageCount + counter);
-//                        System.out.println(ayah);
                         ayatCount++;
                     }
                     counter++;
@@ -195,23 +230,58 @@ public class Main extends Application{
                 }
 
                 Mushaf.swarh.get(surahName).numberOfAyat = numberOfAyatInSurah;
-//
-//                System.out.println(Mushaf.surahs[surahNumber-1].name);
-//                System.out.println(Mushaf.surahs[surahNumber-1].number);
-//                System.out.println(Mushaf.surahs[surahNumber-1].pageNumber);
-//                System.out.println(Mushaf.surahs[surahNumber-1].numberOfAyat);
-//                System.out.println("عدد ايات"+numberOfAyatInSurah);
-//                System.out.println(ayatCount);
             }
         }
     }
+    public void loadMakanAlNzool() throws FileNotFoundException {
+        File file = null;
+        try {
+            file = new File(getClass().getResource("Texts/makanAlNzool").toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        Scanner scanner = new Scanner(file);
+
+        Set<String> keys = Mushaf.swarh.keySet();
+        Iterator<String> key = keys.iterator();
+
+        while (scanner.hasNextLine()) {
+            String makanElNzool = scanner.nextLine();
+            Mushaf.swarh.get(key.next()).makanElnzool = makanElNzool;
+        }
+
+        scanner.close();
+    }
+    public void loadCheckPoints() throws FileNotFoundException {
+        File file = null;
+        try {
+            file = new File(Objects.requireNonNull(getClass().getResource("Texts/checkPoints")).toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+        Scanner scanner = new Scanner(file);
+
+        Set<String> keys = Mushaf.swarh.keySet();
+        Iterator<String> key = keys.iterator();
+
+        while (scanner.hasNextLine()) {
+            String makanElNzool = scanner.nextLine();
+            Mushaf.swarh.get(key.next()).makanElnzool = makanElNzool;
+        }
+
+        scanner.close();
+    }
     public static void main(String[] args) {
         launch(args);
+        System.out.println("end");
     }
     @Override
     public void start(Stage primaryStage) throws IOException, XmlException {
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
+        loadPDFDocument("Texts/ar_sa7e7_elazkar.pdf");
         loadMushaf();
+        loadMakanAlNzool();
 
         Parent root = FXMLLoader.load(getClass().getResource("Fxmls/Mushaf.fxml"));
         Scene scene = new Scene(root);
@@ -220,7 +290,7 @@ public class Main extends Application{
         primaryStage.setScene(scene);
 
         primaryStage.setMinWidth(780);
-        primaryStage.setMinHeight(490);
+        primaryStage.setMinHeight(500);
 
         primaryStage.setWidth(1440);
         primaryStage.setHeight(800);

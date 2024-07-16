@@ -20,7 +20,7 @@
             <Font name="Arial" size="27.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="16.0" layoutY="35.0" lineSpacing="2.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="مكية" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="51.00725555419922">
+      <Text fx:id="makanElNzool" fill="WHITE" layoutX="16.0" layoutY="35.0" lineSpacing="2.0" smooth="false" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="مكية" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="51.00725555419922">
          <font>
             <Font name="Noon" size="22.0" />
          </font>

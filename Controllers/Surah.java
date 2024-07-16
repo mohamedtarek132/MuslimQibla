@@ -11,6 +11,8 @@ public class Surah {
     @FXML
     Text numberOfAyat;
     @FXML
+    Text makanElNzool;
+    @FXML
     public Button surahButton;
     public void setSurahNumber(String text)
     {

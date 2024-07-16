@@ -1,5 +1,6 @@
 package MuslimQibla.Controllers;
 import MuslimQibla.Classes.Ayah;
+import MuslimQibla.Classes.CheckPoint;
 import MuslimQibla.Classes.Page;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -13,13 +14,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
@@ -27,75 +29,87 @@ import javafx.scene.text.*;
 //hello i am ruining the code by useless comments
 import java.io.IOException;
 import java.net.URL;
-import java.util.Hashtable;
-import java.util.LinkedHashMap;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class Mushaf implements Initializable{
     @FXML
+    AnchorPane anchor;
+    @FXML
+    AnchorPane mainMenuAnchor;
+    @FXML
+    TextFlow quranBody;
+    @FXML
+    ScrollPane scrollMenu;
+    @FXML
     TextField ayahSearchField;
     @FXML
-    AnchorPane anchor;
+    TextField surahSearchTextField;
+    @FXML
+    TextField additionTextField;
     @FXML
     ImageView backgroundImage;
     @FXML
-    Rectangle shadeRectangle;
+    ImageView searchIcon;
     @FXML
-    Rectangle menu;
+    Polygon bookmarkTriangle;
     @FXML
     Line horizontalLine;
     @FXML
     Line horizontalLine2;
     @FXML
+    Line verticalLine;
+    @FXML
+    Rectangle shadeRectangle;
+    @FXML
     Rectangle quranRectangle;
     @FXML
-    TextFlow quranBody;
-    @FXML
-    Polyline rightArrow;
-    @FXML
-    Polyline leftArrow;
-    @FXML
-    Button pageButton;
+    Rectangle menu;
     @FXML
     Rectangle ayahSearchRec;
     @FXML
-    ImageView searchIcon;
+    Rectangle bookMark;
     @FXML
     Text surah;
     @FXML
-    Button surahButton;
-    @FXML
     Text juz;
-    @FXML
-    Button juzButton;
-    @FXML
-    ScrollPane scrollMenu;
     @FXML
     Text menuTitle;
     @FXML
-    Line verticalLine;
+    Text additionText;
+    @FXML
+    Button rightArrow;
+    @FXML
+    Button leftArrow;
+    @FXML
+    Button pageButton;
+    @FXML
+    Button surahButton;
+    @FXML
+    Button juzButton;
     @FXML
     Button saveButton;
     @FXML
-    Button additionButton;
+    Button additionAndRenameButton;
     @FXML
     Button deleteButton;
-    @FXML
-    TextField additionTextField;
-    @FXML
-    Text additionText;
-    @FXML
-    Rectangle additionRec;
-    @FXML
-    TextField surahSearchTextField;
     String buttonCss = getClass().getResource("../CssFiles/button.css").toExternalForm();
     String textFieldCss = getClass().getResource("../CssFiles/textField.css").toExternalForm();
     String scrollPaneCss = getClass().getResource("../CssFiles/scrollPane.css").toExternalForm();
+    String buttonClickedCss = "-fx-background-color: #080927;" + "-fx-border-color: white;";
     char []arabicNumbers = new char[]{'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+    String []arabicNumbersWords = new String[]{"الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس", "السابع", "الثامن",
+                                                "التاسع", "العاشر", "الحادي عشر", "الثاني عشر", "الثالث عشر", "الرابع عشر",
+                                                "الخامس عشر", "السادس عشر", "السابع عشر", "الثامن عشر" , "التاسع عشر",
+                                                "العشرون", "الحادي والعشرون", "الثاني والعشرون", "الثالث والعشرون",
+                                                "الرابع والعشرن", "الخامس والعشرون", "السادس والعشرون", "السابع والعشرون",
+                                                "الثامن والعشرون", "التاسع والعشرون", "الثلاثون"};
     public static Ayah[] ayat;
     public static Page[] pages;
     public static LinkedHashMap<String, MuslimQibla.Classes.Surah> swarh = new LinkedHashMap<String, MuslimQibla.Classes.Surah>();
+    public static LinkedHashMap<String, CheckPoint> checkPoints = new LinkedHashMap<>();
+    public String clickedCheckPointName = "";
+    public boolean checkPointIsClicked = false;
+    public boolean checkPointMenuOpen = false;
     @FXML
     ChangeListener<Number> quranRectangleHeightListener =(observableValue, number, t1) -> {
         double half = quranRectangle.getLayoutY() + quranRectangle.getHeight()/2 - 25;
@@ -145,7 +159,7 @@ public class Mushaf implements Initializable{
 
             quranRectangle.setLayoutX(219);
 
-            rightArrow.setLayoutX(290);
+            rightArrow.setLayoutX(240);
 
             searchIcon.setLayoutX(634.4);
             ayahSearchField.setLayoutX(220);
@@ -165,7 +179,7 @@ public class Mushaf implements Initializable{
             quranRectangle.setWidth(newQuranRecWidth);
 
             quranRectangle.setLayoutX(219 + differenceBetweenNewAndBaseAnchorWidth);
-            rightArrow.setLayoutX(290 + differenceBetweenNewAndBaseAnchorWidth);
+            rightArrow.setLayoutX(240 + differenceBetweenNewAndBaseAnchorWidth);
             searchIcon.setLayoutX(634.4 + differenceBetweenNewAndBaseAnchorWidth);
             ayahSearchField.setLayoutX(220 + differenceBetweenNewAndBaseAnchorWidth);
             quranBody.setLayoutX(290 + differenceBetweenNewAndBaseAnchorWidth);
@@ -190,6 +204,7 @@ public class Mushaf implements Initializable{
             surahSearchTextField.setPrefWidth(300);
 
         }else if (newAnchorWidth <= baseAnchorWidth - xOffset){
+
             newQuranRecWidth = newAnchorWidth - (baseAnchorWidth - newQuranRecWidth - xOffset);
             quranRectangle.setWidth(newQuranRecWidth);
             int min = 1100;
@@ -200,7 +215,7 @@ public class Mushaf implements Initializable{
                 scrollMenu.setPrefWidth(newScrollMenuWidth);
                 double difference = additionTextField.getWidth() - (differenceBetweenNewAndBaseAnchorWidth + 400 + xOffset);
                 additionTextField.setPrefWidth(differenceBetweenNewAndBaseAnchorWidth + 400 + xOffset);
-                additionTextField.setLayoutX(590-xOffset);
+                additionTextField.setLayoutX(590 - xOffset);
 
                 ayahSearchField.setPrefWidth(newAyahSearchRecWidth);
                 searchIcon.setLayoutX(634.4 + differenceBetweenNewAndBaseAnchorWidth);
@@ -227,7 +242,7 @@ public class Mushaf implements Initializable{
             }
 
             quranRectangle.setLayoutX(219 - xOffset);
-            rightArrow.setLayoutX(290- xOffset);
+            rightArrow.setLayoutX(240 - xOffset);
             ayahSearchRec.setLayoutX(220 - xOffset);
             quranBody.setLayoutX(290- xOffset );
             surah.setLayoutX(737 - xOffset);
@@ -243,6 +258,21 @@ public class Mushaf implements Initializable{
     ChangeListener<Number> anchorHeightListener2 = ((observableValue, oldValue, newValue) -> {
         scrollMenu.setPrefHeight((newValue.doubleValue() - 1024) + (645 - 60));
     });
+    ChangeListener<String> additionTextFieldTextListener = (((observableValue,oldValue, newValue) -> {
+        if(newValue.isEmpty()) {
+            additionAndRenameButton.setStyle(buttonClickedCss);
+            additionAndRenameButton.setDisable(true);
+        }else if(checkPointMenuOpen){
+            if(checkPointIsClicked){
+                additionAndRenameButton.setStyle("");
+                additionAndRenameButton.setDisable(false);
+            }
+        }
+        else{
+            additionAndRenameButton.setStyle("");
+            additionAndRenameButton.setDisable(false);
+        }
+    }));
     //hello i am ruining the code by useless comments
     public void addListeners() {
         quranRectangle.widthProperty().addListener(quranRectangleWidthListener);
@@ -258,7 +288,7 @@ public class Mushaf implements Initializable{
             saveButton.setLayoutX(newValue.doubleValue());
             menuTitle.setLayoutX(newValue.doubleValue());
             additionText.setLayoutX(newValue.doubleValue());
-            additionButton.setLayoutX(newValue.doubleValue());
+            additionAndRenameButton.setLayoutX(newValue.doubleValue());
             deleteButton.setLayoutX(newValue.doubleValue() + 140);
             surahSearchTextField.setLayoutX(newValue.doubleValue());
         } );
@@ -266,6 +296,7 @@ public class Mushaf implements Initializable{
             menuTitle.setWrappingWidth(newValue.doubleValue());
             additionText.setWrappingWidth(newValue.doubleValue());
         } );
+        additionTextField.textProperty().addListener(additionTextFieldTextListener);
     }
     public void bindWidth(){
         backgroundImage.fitWidthProperty().bind(anchor.widthProperty());
@@ -280,6 +311,7 @@ public class Mushaf implements Initializable{
         quranRectangle.heightProperty().bind(anchor.heightProperty().subtract(1024 - 761));
         menu.heightProperty().bind(anchor.heightProperty().subtract(1024 - 800));
         quranBody.prefHeightProperty().bind(anchor.heightProperty().subtract(1024-675));
+
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -325,14 +357,15 @@ public class Mushaf implements Initializable{
         anchor.getChildren().add(deleteButton);
         deleteButton.toBack();
 
-        additionButton = new Button("إضافة");
-        additionButton.getStylesheets().add(buttonCss);
-        additionButton.setPrefWidth(130);
-        additionButton.setPrefHeight(20);
-        additionButton.setFont(Font.font("Tajwal",16));
-        anchor.getChildren().add(additionButton);
-        AnchorPane.setBottomAnchor(additionButton, 800-665d);
-        additionButton.toBack();
+        additionAndRenameButton = new Button("إضافة");
+        additionAndRenameButton.getStylesheets().add(buttonCss);
+        additionAndRenameButton.setPrefWidth(130);
+        additionAndRenameButton.setPrefHeight(20);
+        additionAndRenameButton.setFont(Font.font("Tajwal",16));
+        additionAndRenameButton.setTextFill(Paint.valueOf("white"));
+        anchor.getChildren().add(additionAndRenameButton);
+        AnchorPane.setBottomAnchor(additionAndRenameButton, 800-665d);
+        additionAndRenameButton.toBack();
 
         additionTextField = new TextField();
         additionTextField.getStylesheets().add(textFieldCss);
@@ -374,8 +407,34 @@ public class Mushaf implements Initializable{
 
         addListeners();
 
-        changePage(597);
+        changePage(1);
+    }
+    public void mainMenu(ActionEvent ae) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../Fxmls/MainMenu.fxml"));
+        MainMenu mainMenu1 = null;
+        try {
+            mainMenuAnchor = loader.load();
+            mainMenu1 = loader.getController();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        AnchorPane.setTopAnchor(mainMenuAnchor, 0.0d);
+        AnchorPane.setRightAnchor(mainMenuAnchor, 0.0);
+        AnchorPane.setBottomAnchor(mainMenuAnchor, 0.0);
+        AnchorPane.setBottomAnchor(mainMenu1.settingsButton, 14.400000000000006);
 
+        mainMenu1.scrollPane.prefHeightProperty().bind(anchor.heightProperty().subtract(295));
+//        mainMenu.heightProperty().
+        anchor.getChildren().remove(shadeRectangle);
+        anchor.getChildren().add(shadeRectangle);
+        shadeRectangle.toFront();
+        int blurAmount = 3;
+        for(Node i : anchor.getChildren()){
+            if(i != mainMenuAnchor && i != shadeRectangle)
+                i.setEffect(new BoxBlur(blurAmount, blurAmount, 1));
+        }
+        anchor.getChildren().add(mainMenuAnchor);
+        mainMenuAnchor.toFront();
     }
     public void menuToFront(){
         shadeRectangle.toFront();
@@ -394,18 +453,30 @@ public class Mushaf implements Initializable{
         horizontalLine2.toBack();
         saveButton.toBack();
         deleteButton.toBack();
-        additionButton.toBack();
+        additionAndRenameButton.toBack();
         additionTextField.toBack();
         additionText.toBack();
         surahSearchTextField.toBack();
+        if(anchor.getChildren().contains(mainMenuAnchor))
+        {
+            anchor.getChildren().remove(mainMenuAnchor);
+            for(Node i : anchor.getChildren()){
+                if(i != mainMenuAnchor && i != shadeRectangle)
+                    i.setEffect(null);
+            }
+        }
+        checkPointIsClicked = false;
+        checkPointMenuOpen = false;
+        clickedCheckPointName = "";
     }
     public String fromIntegerToArabicNumbers(int number) {
         String pageNumber = "";
         int temp = number;
+
         while(temp !=0){
-            char temp2 = arabicNumbers[temp%10];
+            char temp2 = arabicNumbers[temp % 10];
             pageNumber += temp2;
-            temp/=10;
+            temp /= 10;
         }
 
         pageNumber = new StringBuilder(pageNumber).reverse().toString();
@@ -424,6 +495,16 @@ public class Mushaf implements Initializable{
         }
 
         return pageNumber;
+    }
+    public int fromArabicNumberWordsToInteger(String number){
+        int intNumber = 0;
+        for(int i = 0; i < 29; i++){
+            if (number.equals(arabicNumbersWords[i])){
+                intNumber = i;
+                break;
+            }
+        }
+        return intNumber;
     }
     public void changeFont(double newValue, String type){
         if (quranBody.getChildren().get(0) instanceof Text && quranBody.getHeight()!=0 && quranBody.getWidth()!=0) {
@@ -454,15 +535,14 @@ public class Mushaf implements Initializable{
 
             }
             else if (proportion <= 0.51){
-                size = (size * (proportion + 0.285));
+                size = (size * (proportion + 0.24));
                 System.out.println("4");
 
             }else if (proportion <= 1){
                 size = (size * (proportion + 0.22));
             }else{
-                size = (size * (proportion + 0.2));
+                size = (size * (proportion + 0.18));
             }
-//            size = (size * (proportion + 0.24));
 
 
             for (int i = 0; i < quranBody.getChildren().size(); i++) {
@@ -515,7 +595,7 @@ public class Mushaf implements Initializable{
             prefHeight = (anchor.getHeight() - 1024) + (645 );
         }else{
             anchor.heightProperty().addListener(anchorHeightListener2);
-            prefHeight = (anchor.getHeight() - 1024) + (645 - 60);
+            prefHeight = (anchor.getHeight() - 1024) + (645 - 70);
         }
 
         AnchorPane temp = new AnchorPane();
@@ -562,16 +642,22 @@ public class Mushaf implements Initializable{
         anchor.getChildren().add(scrollMenu);
         anchor.getChildren().add(menuTitle);
     }
-    public GridPane savepoint(){
+    public GridPane savePoints(){
         VBox surahName = new VBox(16);
         VBox pageNumber = new VBox(18.7);
         VBox savepointName = new VBox(10);
+
         GridPane gridPane = new GridPane();
+
         gridPane.setHgap(10);
 
-        for(int i = 0; i < 200; i++)
+        Set<String> keys = checkPoints.keySet();
+
+        for(String key: keys)
         {
-            Text name = new Text("سورة الفاتحة");
+            CheckPoint checkPoint = checkPoints.get(key);
+
+            Text name = new Text(checkPoint.surah);
             name.setFont(Font.font("noon",22));
             name.setFill(Paint.valueOf("White"));
             name.setFontSmoothingType(FontSmoothingType.GRAY);
@@ -583,26 +669,46 @@ public class Mushaf implements Initializable{
             button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(45);
-            button.setFont(Font.font("noon",22));
-            button.setText("علامة  ۱");
-            button.setPadding(new Insets(-20,0, -15,0));
+            button.setFont(Font.font("noon",24));
+            button.setText(checkPoint.Name);
+            button.setOnAction(event ->{
+
+                Button button1 = (Button)event.getSource();
+                if(button1.getText().equals(clickedCheckPointName)) {
+                    checkPointIsClicked = !checkPointIsClicked;
+                }else{
+                    checkPointIsClicked = true;
+                }
+                if(checkPointIsClicked) {
+                    button1.setStyle(buttonClickedCss);
+                    clickedCheckPointName = button1.getText();
+                } else {
+                    button1.setStyle("");
+                    clickedCheckPointName = "";
+                }
+//                String checkPointName = button1.getText();
+//                String checkPointPageNumber = checkPoints.get(checkPointName).pageNumber;
+//                changePage(fromArabicNumbersToInteger(checkPointPageNumber));
+//                menuToBack();
+            });
+            button.setPadding(new Insets(-30,0, -10,0));
 
             savepointName.getChildren().add(button);
 
             VBox numbers = new VBox(7);
             numbers.setAlignment(Pos.CENTER);
 
-            Text number = new Text("صفحة" );
-            number.setFont(Font.font("noon",22));
-            number.setFill(Paint.valueOf("White"));
-            number.setTextAlignment(TextAlignment.CENTER);
-            number.setFontSmoothingType(FontSmoothingType.GRAY);
-            number.setBoundsType(TextBoundsType.VISUAL);
+            Text page = new Text("صفحة" );
+            page.setFont(Font.font("noon",22));
+            page.setFill(Paint.valueOf("White"));
+            page.setTextAlignment(TextAlignment.CENTER);
+            page.setFontSmoothingType(FontSmoothingType.GRAY);
+            page.setBoundsType(TextBoundsType.VISUAL);
 
-            numbers.getChildren().add(number);
+            numbers.getChildren().add(page);
 
-            number = new Text("۱" );
-            number.setFont(Font.font("noon",22));
+            Text number = new Text(checkPoint.pageNumber);
+            number.setFont(Font.font("Arial",22));
             number.setFill(Paint.valueOf("White"));
             number.setTextAlignment(TextAlignment.RIGHT);
             number.setFontSmoothingType(FontSmoothingType.GRAY);
@@ -612,48 +718,98 @@ public class Mushaf implements Initializable{
 
             pageNumber.getChildren().add(numbers);
         }
-        int i = 10;
+        int i = 12;
+
         gridPane.add(surahName, i, 0);
         gridPane.add(savepointName, i + 1, 0);
         gridPane.add(pageNumber, i + 2, 0);
 
+        additionTextField.setText("");
+
         return gridPane;
     }
     public void saveMenu(ActionEvent ae){
-        setScrollMenuAndMenuTitle("حفظ العلامة", savepoint(), 3);
+        setScrollMenuAndMenuTitle("حفظ العلامة", savePoints(), 3);
         menuToFront();
         saveButton.setText("حفظ");
+        saveButton.setOnAction(event -> {
+            checkPoints.get(clickedCheckPointName).pageNumber = pageButton.getText();
+            checkPoints.get(clickedCheckPointName).surah = surahButton.getText();
+
+            changePage(fromArabicNumbersToInteger(pageButton.getText()));
+
+            saveMenu(event);
+        });
         saveButton.toFront();
 
         horizontalLine2.toFront();
 
-        additionButton.setText("إضافة");
-        additionButton.toFront();
+        additionAndRenameButton.setText("إضافة");
+        additionAndRenameButton.setStyle(buttonClickedCss);
+        additionAndRenameButton.setDisable(true);
+        additionAndRenameButton.setOnAction(event -> {
+            CheckPoint checkPoint = new CheckPoint();
+            checkPoint.Name = additionTextField.getText();
+            checkPoint.pageNumber = pageButton.getText();
+            checkPoint.surah = surahButton.getText();
+
+            checkPoints.put(checkPoint.Name, checkPoint);
+
+            changePage(fromArabicNumbersToInteger(checkPoint.pageNumber));
+
+            saveMenu(event);
+
+        });
+        additionAndRenameButton.toFront();
 
         additionTextField.toFront();
 
         additionText.setText("إضافة علامة جديدة");
+        AnchorPane.setBottomAnchor(additionText, 800-615d);
         additionText.toFront();
+
+        checkPointMenuOpen = false;
     }
     public void savepointMenu(ActionEvent ae){
-        setScrollMenuAndMenuTitle("علامات", savepoint(), 3);
+        setScrollMenuAndMenuTitle("علامات", savePoints(), 3);
         menuToFront();
         saveButton.setText("إنتقل");
         saveButton.toFront();
+        saveButton.setOnAction(event -> {
+            String pageNumber = checkPoints.get(clickedCheckPointName).pageNumber;
+            changePage(fromArabicNumbersToInteger(pageNumber));
+            menuToBack();
+        });
 
         deleteButton.setText("حذف");
         deleteButton.toFront();
+        deleteButton.setOnAction(event -> {
+            checkPoints.remove(clickedCheckPointName);
+            savepointMenu(ae);
+            checkPointIsClicked = false;
+        });
 
         horizontalLine2.toFront();
 
-        additionButton.setText("تأكيد");
-        additionButton.toFront();
+        additionAndRenameButton.setText("تأكيد");
+        additionAndRenameButton.setStyle(buttonClickedCss);
+        additionAndRenameButton.setDisable(true);
+        additionAndRenameButton.setOnAction(event -> {
+            checkPoints.get(clickedCheckPointName).Name = additionTextField.getText();
+
+            savepointMenu(event);
+        });
+
+        additionAndRenameButton.toFront();
 
 
         additionTextField.toFront();
 
         additionText.setText("تغيير الأسم");
+        AnchorPane.setBottomAnchor(additionText, 800-620d);
         additionText.toFront();
+
+        checkPointMenuOpen = true;
     }
     public void surahMenu(ActionEvent ae) throws IOException {
         VBox surahs = new VBox(17);
@@ -665,6 +821,7 @@ public class Mushaf implements Initializable{
             temp.setSurahNumber(fromIntegerToArabicNumbers(swarh.get(key).number));
             temp.numberOfAyat.setText(fromIntegerToArabicNumbers(swarh.get(key).numberOfAyat));
             temp.pageNumber.setText(fromIntegerToArabicNumbers(swarh.get(key).pageNumber));
+            temp.makanElNzool.setText(swarh.get(key).makanElnzool);
             temp.surahButton.setText(swarh.get(key).name);
             temp.surahButton.setOnAction(event -> {
                 Object node = event.getSource(); //returns the object that generated the event
@@ -762,7 +919,7 @@ public class Mushaf implements Initializable{
         setScrollMenuAndMenuTitle("الإنتقال الى صفحة", gridPane, 1);
 
         menuToFront();
-        verticalLine.setEndY(50 * 303);
+        verticalLine.setEndY(50 * 304);
 
         verticalLine.toFront();
 
@@ -776,8 +933,8 @@ public class Mushaf implements Initializable{
         VBox leftGridButtons = new VBox(10);
         VBox rightGridButtons = new VBox(10);
 
-        VBox leftGridSurahNames = new VBox(10);
-        VBox rightGridSurahNames = new VBox(10);
+        VBox leftGridSurahNames = new VBox(12);
+        VBox rightGridSurahNames = new VBox(12);
 
         gridPane.setHgap(40);
         rightGridPane.setHgap(20);
@@ -785,43 +942,47 @@ public class Mushaf implements Initializable{
 
         gridPane.getColumnConstraints().add(new ColumnConstraints(250));
 
-        for (int i = 1; i <= 15; i++) {
-            Button button = new Button();
-            button.getStylesheets().add(buttonCss);
-            button.setPrefWidth(180);
-            button.setPrefHeight(40);
-            button.setFont(Font.font("Tajwal",16));
-
-            String juzNumber = fromIntegerToArabicNumbers(i*2);
-
-            button.setText("الجزء  " + juzNumber);
-
-            leftGridButtons.getChildren().add(button);
-
+        for (int i = 0; i < 30; i++) {
             Text text = new Text("البسملة");
             text.setFont(Font.font("noon",22));
             text.setFill(Paint.valueOf("White"));
 
-            leftGridSurahNames.getChildren().add(text);
-        }
-
-        for (int i = 0; i < 15; i++) {
             Button button = new Button();
             button.getStylesheets().add(buttonCss);
             button.setPrefWidth(180);
             button.setPrefHeight(40);
-            button.setFont(Font.font("Tajwal",16));
+            button.setFont(Font.font("Tajwal",18));
 
-            String juzNumber = fromIntegerToArabicNumbers(i * 2 + 1);
+            String juzNumber = arabicNumbersWords[i];
 
-            button.setText("الجزء  " + juzNumber);
-            rightGridButtons.getChildren().add(button);
+            button.setText(juzNumber);
 
-            Text text = new Text("البسملة");
-            text.setFont(Font.font("noon",22));
-            text.setFill(Paint.valueOf("White"));
-            rightGridSurahNames.getChildren().add(text);
+            button.setOnAction(event -> {
+
+                Button button1 = (Button)event.getSource();
+
+                int juzNumberInt = fromArabicNumberWordsToInteger(button1.getText());
+
+                if(juzNumberInt == 0){
+                    juzNumberInt = 1;
+                }else{
+                    juzNumberInt = juzNumberInt * 20 + 2;
+                }
+
+                changePage(juzNumberInt);
+
+                menuToBack();
+            });
+
+            if(i % 2 != 0){
+                leftGridButtons.getChildren().add(button);
+                leftGridSurahNames.getChildren().add(text);
+            } else {
+                rightGridButtons.getChildren().add(button);
+                rightGridSurahNames.getChildren().add(text);
+            }
         }
+
         leftGridPane.add(leftGridButtons, 0,0);
         rightGridPane.add(rightGridButtons, 0,0);
 
@@ -834,13 +995,12 @@ public class Mushaf implements Initializable{
         setScrollMenuAndMenuTitle("الإنتقال الى جزء", gridPane, 1);
 
         menuToFront();
-        verticalLine.setEndY(50 * 15);
+        verticalLine.setEndY(51 * 15);
 
         verticalLine.toFront();
 
         //hello i am ruining the code by useless comments
     }
-    //hello i am ruining the code by useless comments
 
     /**
      * change the text in text field to the next page in the mushaf
@@ -857,6 +1017,33 @@ public class Mushaf implements Initializable{
         surahButton.setStyle("-fx-padding: -12 0 0 0");
 
         pageButton.setText(fromIntegerToArabicNumbers(pageNumber));
+
+        boolean found = false;
+
+        Set<String> keys = checkPoints.keySet();
+
+        for (String key : keys) {
+            CheckPoint checkPoint = checkPoints.get(key);
+            if (pageNumber == fromArabicNumbersToInteger(checkPoint.pageNumber)) {
+                found = true;
+                break;
+            }
+        }
+
+        if(found){
+            bookMark.toFront();
+            bookmarkTriangle.toFront();
+        }else{
+            bookMark.toBack();
+            bookmarkTriangle.toBack();
+        }
+
+        int juzNumber = pageNumber/20;
+        if(juzNumber < 30){
+            juzButton.setText(arabicNumbersWords[juzNumber]);
+        } else {
+            juzButton.setText(arabicNumbersWords[29]);
+        }
         if((ayahNumber != 0) &&
           (ayah.ayahNumber == 1 &&
           (ayat[ayahNumber - 1].ayah.equals("بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ") ||
@@ -908,6 +1095,12 @@ public class Mushaf implements Initializable{
                 ayahText.setFont(Font.font("KFGQPC HAFS Uthmanic Script", FontWeight.BOLD,32));
                 ayahText.setFill(Paint.valueOf("black"));
                 ayahText.setFontSmoothingType(FontSmoothingType.GRAY);
+                ayahText.setOnMouseClicked(event -> {
+                    Object node = event.getSource(); //returns the object that generated the event
+                    //since the returned object is a Button you can cast it to one
+                    Text b = (Text)node;
+                    System.out.println(b.getText());
+                });
                 quranBody.getChildren().add(ayahText);
             }
 
@@ -917,6 +1110,11 @@ public class Mushaf implements Initializable{
                 break;
             }
         }
+        // i added an empty text because there is a bug in the
+        // last text when you spam the next page button where
+        // it doesn't change the content of the last text so i added an empty text
+        // so that it will be the last text therefore nothing will happen to the text
+        quranBody.getChildren().add(new Text());
         quranBody.setTextAlignment(TextAlignment.CENTER);
         changeFont(quranBody.getHeight(), "h");
         changeFont(quranBody.getWidth(), "w");
@@ -944,4 +1142,5 @@ public class Mushaf implements Initializable{
         menuToBack();
         return null;
     }
+
 }
