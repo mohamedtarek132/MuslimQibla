@@ -498,7 +498,7 @@ public class Mushaf implements Initializable{
     }
     public int fromArabicNumberWordsToInteger(String number){
         int intNumber = 0;
-        for(int i = 0; i < 29; i++){
+        for(int i = 0; i < 30; i++){
             if (number.equals(arabicNumbersWords[i])){
                 intNumber = i;
                 break;
@@ -541,7 +541,8 @@ public class Mushaf implements Initializable{
             }else if (proportion <= 1){
                 size = (size * (proportion + 0.22));
             }else{
-                size = (size * (proportion + 0.18));
+//                size = (size * (proportion + 0.18));
+                size = (size * (1 + 0.22));
             }
 
 
@@ -733,12 +734,16 @@ public class Mushaf implements Initializable{
         menuToFront();
         saveButton.setText("حفظ");
         saveButton.setOnAction(event -> {
-            checkPoints.get(clickedCheckPointName).pageNumber = pageButton.getText();
-            checkPoints.get(clickedCheckPointName).surah = surahButton.getText();
+            try {
+                checkPoints.get(clickedCheckPointName).pageNumber = pageButton.getText();
+                checkPoints.get(clickedCheckPointName).surah = surahButton.getText();
 
-            changePage(fromArabicNumbersToInteger(pageButton.getText()));
+                changePage(fromArabicNumbersToInteger(pageButton.getText()));
 
-            saveMenu(event);
+                saveMenu(event);
+            } catch (NullPointerException exception){
+                System.out.println("noo");
+            }
         });
         saveButton.toFront();
 
@@ -965,6 +970,7 @@ public class Mushaf implements Initializable{
 
                 if(juzNumberInt == 0){
                     juzNumberInt = 1;
+                    System.out.println(9);
                 }else{
                     juzNumberInt = juzNumberInt * 20 + 2;
                 }

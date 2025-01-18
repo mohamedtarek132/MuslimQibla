@@ -1,0 +1,5 @@
+.text{
+-fx-background-color: rgba(126,32,146, 0.8);
+-fx-text-fill: rgba(255,255,255, 1);
+-fx-border-radius: 12;
+}

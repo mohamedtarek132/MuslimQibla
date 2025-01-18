@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="250.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MuslimQibla.Controllers.Zikr">
+   <children>
+      <Rectangle arcHeight="28.0" arcWidth="28.0" fill="#080927" height="250.0" opacity="0.6" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1110.0" />
+      <Button fx:id="surahButton" alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" layoutX="17.0" layoutY="202.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" stylesheets="@../CssFiles/button.css" text="الأذكار" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="KFGQPC Qaloun Uthmanic Script Regular" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="-10.0" top="-16.0" />
+         </padding>
+      </Button>
+      <Line endX="1078.0" layoutX="17.0" layoutY="70.0" stroke="WHITE" />
+      <Text fill="WHITE" layoutX="950.0" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="أذكار الصباح" textAlignment="RIGHT" textOrigin="TOP">
+         <font>
+            <Font name="Noon" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="#d19e71" layoutX="1021.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="۲۰ ذكر " textOrigin="TOP">
+         <font>
+            <Font name="Arabic Typesetting" size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="zikrText" fill="WHITE" layoutX="17.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="عن عبدالله بن خبيب رضي الله عنه قال: خرجْنا في ليلة مطر، وظلمة شديدة، نطلب رسول الله صلى الله عليه وسلم ليُصلي لنا، فأدركناه، فقال: ((أصليتم؟))، فلم أقل شيئًا، فقال: ((قل))، فلم أقل شيئًا، ثم قال: ((قل))، فلم أقل شيئًا، ثم قال: ((قل))، فقلت: يا رسول الله، ما أقول؟ قال: ((قل: ﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾ والمعوذتين حين تمسي، وحين تصبح، ثلاث مرات، تكفيك من كل شيء))؛ رواه أبو داود وحسنه الألباني." textAlignment="RIGHT" textOrigin="TOP" wrappingWidth="1078.0">
+         <font>
+            <Font name="Sakkal Majalla" size="28.0" />
+         </font>
+      </Text>
+      <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/bell.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="1075.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/info.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

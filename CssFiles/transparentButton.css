@@ -1,0 +1,7 @@
+.button{
+-fx-background-color: transparent;
+}
+.button .text{
+-fx-font-smoothing-type: gray;
+
+}
